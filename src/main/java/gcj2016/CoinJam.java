@@ -62,7 +62,6 @@ public class CoinJam {
     private static Divisor findDivisor(long number) {
         Divisor divisor = new Divisor();
         for (int n = 2; n < number - 1; n++) {
-            System.out.println("hey: " + number);
             double d = (double) number / (double) n;
             int i = (int) d;
             double x = d - i;

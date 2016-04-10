@@ -4,3 +4,6 @@ build
 .project
 .classpath
 .gradle
+*.iml
+*.ipr
+*.iws
