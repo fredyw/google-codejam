@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+/**
+ * https://code.google.com/codejam/contest/6254486/dashboard
+ */
 public class RevengeOfThePancakes {
     public static void main(String[] args) throws Exception {
         File file = new File(args[0]);

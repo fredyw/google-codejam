@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
 
+/**
+ * https://code.google.com/codejam/contest/6254486/dashboard
+ */
 public class Fractiles {
     public static void main(String[] args) throws Exception {
         // File file = new File(args[0]);
