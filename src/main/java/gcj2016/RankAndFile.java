@@ -9,6 +9,9 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+/**
+ * https://code.google.com/codejam/contest/4304486/dashboard
+ */
 public class RankAndFile {
     public static void main(String[] args) throws Exception {
         File file = new File("src/main/resources/2016/rankandfile/sample.txt");
