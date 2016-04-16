@@ -10,10 +10,11 @@ import java.util.StringJoiner;
  */
 public class CoinJam {
     public static void main(String[] args) throws Exception {
-        // File file = new File(args[0]);
         // File file = new File("src/main/resources/2016/coinjam/sample.txt");
-        File file = new File("src/main/resources/2016/coinjam/C-small-attempt0.in");
-        // File file = new File("src/main/resources/2016/coinjam/B-large.in");
+        // File file = new File("src/main/resources/2016/coinjam/C-small-attempt0.in");
+        // File file = new File("src/main/resources/2016/coinjam/C-small-practice.in");
+        // File file = new File("src/main/resources/2016/coinjam/C-large.in");
+        File file = new File("src/main/resources/2016/coinjam/C-large-practice.in");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int testCases = Integer.parseInt(br.readLine());
             for (int t = 1; t <= testCases; t++) {
@@ -64,11 +65,8 @@ public class CoinJam {
 
     private static Divisor findDivisor(long number) {
         Divisor divisor = new Divisor();
-        for (int n = 2; n < number - 1; n++) {
-            double d = (double) number / (double) n;
-            int i = (int) d;
-            double x = d - i;
-            if (x == 0.0) {
+        for (int n = 2; n < Math.sqrt(number) - 1; n++) {
+            if (number % n == 0) {
                 divisor.found = true;
                 divisor.number = n;
                 return divisor;
