@@ -25,8 +25,9 @@ public class GettingTheDigits {
 
     public static void main(String[] args) throws Exception {
         // File file = new File("src/main/resources/2016/gettingthedigits/sample.txt");
-        // File file = new File("src/main/resources/2016/gettingthedigits/A-small-attempt0.in");
         File file = new File("src/main/resources/2016/gettingthedigits/A-small-attempt0.in");
+        // File file = new File("src/main/resources/2016/gettingthedigits/A-small-practice.in");
+        // File file = new File("src/main/resources/2016/gettingthedigits/A-large-practice.in");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int testCases = Integer.parseInt(br.readLine());
             for (int t = 1; t <= testCases; t++) {
