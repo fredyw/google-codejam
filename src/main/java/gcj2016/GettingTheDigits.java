@@ -25,9 +25,9 @@ public class GettingTheDigits {
 
     public static void main(String[] args) throws Exception {
         // File file = new File("src/main/resources/2016/gettingthedigits/sample.txt");
-        File file = new File("src/main/resources/2016/gettingthedigits/A-small-attempt0.in");
+        // File file = new File("src/main/resources/2016/gettingthedigits/A-small-attempt0.in");
         // File file = new File("src/main/resources/2016/gettingthedigits/A-small-practice.in");
-        // File file = new File("src/main/resources/2016/gettingthedigits/A-large-practice.in");
+        File file = new File("src/main/resources/2016/gettingthedigits/A-large-practice.in");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int testCases = Integer.parseInt(br.readLine());
             for (int t = 1; t <= testCases; t++) {
@@ -53,79 +53,95 @@ public class GettingTheDigits {
 
     private static String getDigits(String chars) {
         Map<Character, Integer> charCounts = getCharCounts(chars);
+        return getDigits(charCounts);
+    }
+
+    private static String getDigits(Map<Character, Integer> charCounts) {
+        Map<String, Integer> digits = new HashMap<>();
+        // a single character that can determine the number
+        // stage 1
+        if (charCounts.containsKey('Z')) {
+            int count = charCounts.get('Z');
+            digits.put(ZERO, count);
+            updateCharCounts(charCounts, ZERO, count);
+        }
+        if (charCounts.containsKey('W')) {
+            int count = charCounts.get('W');
+            digits.put(TWO, count);
+            updateCharCounts(charCounts, TWO, count);
+        }
+        if (charCounts.containsKey('X')) {
+            int count = charCounts.get('X');
+            digits.put(SIX, count);
+            updateCharCounts(charCounts, SIX, count);
+        }
+        if (charCounts.containsKey('G')) {
+            int count = charCounts.get('G');
+            digits.put(EIGHT, count);
+            updateCharCounts(charCounts, EIGHT, count);
+        }
+        // stage 2
+        if (charCounts.containsKey('H')) {
+            int count = charCounts.get('H');
+            digits.put(THREE, count);
+            updateCharCounts(charCounts, THREE, count);
+        }
+        if (charCounts.containsKey('U')) {
+            int count = charCounts.get('U');
+            digits.put(FOUR, count);
+            updateCharCounts(charCounts, FOUR, count);
+        }
+        if (charCounts.containsKey('S')) {
+            int count = charCounts.get('S');
+            digits.put(SEVEN, count);
+            updateCharCounts(charCounts, SEVEN, count);
+        }
+        // stage 3
+        if (charCounts.containsKey('O')) {
+            int count = charCounts.get('O');
+            digits.put(ONE, count);
+            updateCharCounts(charCounts, ONE, count);
+        }
+        if (charCounts.containsKey('F')) {
+            int count = charCounts.get('F');
+            digits.put(FIVE, count);
+            updateCharCounts(charCounts, FIVE, count);
+        }
+        // stage 4
+        if (charCounts.containsKey('I')) {
+            int count = charCounts.get('I');
+            digits.put(NINE, count);
+            updateCharCounts(charCounts, NINE, count);
+        }
+
+        StringBuilder result = new StringBuilder();
         List<String> nums = Arrays.asList(ZERO, ONE, TWO, THREE, FOUR, FIVE,
             SIX, SEVEN, EIGHT, NINE);
-        return getDigits(charCounts, nums, 0).digits;
-    }
-
-    private static class Result {
-        private final boolean found;
-        private final String digits;
-
-        public Result(boolean found, String digits) {
-            this.found = found;
-            this.digits = digits;
-        }
-    }
-
-    private static Result getDigits(Map<Character, Integer> charCounts, List<String> nums,
-                                    int idx) {
-        if (idx == nums.size()) {
-            if (charCounts.isEmpty()) {
-                return new Result(true, "");
-            } else {
-                return new Result(false, "");
+        for (String num : nums) {
+            if (digits.containsKey(num)) {
+                int count = digits.get(num);
+                for (int i = 0; i < count; i++){
+                    result.append(getDigit(num));
+                }
             }
         }
-        String num = nums.get(idx);
-        boolean found = true;
-        for (int i = 0; i < num.length(); i++) {
-            char c = num.charAt(i);
-            if (!charCounts.containsKey(c)) {
-                found = false;
-                // put everything back
-                for (int j = 0; j < i; j++) {
-                    if (charCounts.containsKey(num.charAt(j))) {
-                        charCounts.put(num.charAt(j), charCounts.get(num.charAt(j)) + 1);
-                    } else {
-                        charCounts.put(num.charAt(j), 1);
-                    }
-                }
-                break;
-            } else {
-                int count = charCounts.get(c);
-                int newCount = count - 1;
+        return result.toString();
+    }
+
+    private static void updateCharCounts(Map<Character, Integer> charCounts, String num,
+                                         int count) {
+        for (int c = 0; c < count; c++) {
+            for (int i = 0; i < num.length(); i++) {
+                char ch = num.charAt(i);
+                int cnt = charCounts.get(ch);
+                int newCount = cnt - 1;
                 if (newCount == 0) {
-                    charCounts.remove(c);
+                    charCounts.remove(ch);
                 } else {
-                    charCounts.put(c, newCount);
+                    charCounts.put(ch, newCount);
                 }
             }
         }
-        String digit = (found) ? getDigit(num) : "";
-        if (found) {
-            Result result = getDigits(charCounts, nums, idx);
-            if (result.found) {
-                String digits = digit + result.digits;
-                return new Result(result.found, digits);
-            } else {
-                digit = "";
-                for (int i = 0; i < num.length(); i++) {
-                    char c = num.charAt(i);
-                    if (charCounts.containsKey(c)) {
-                        charCounts.put(c, charCounts.get(c) + 1);
-                    } else {
-                        charCounts.put(c, 1);
-                    }
-                }
-            }
-        }
-        Result result = getDigits(charCounts, nums, idx + 1);
-        if (result.found) {
-            String digits = digit + result.digits;
-            return new Result(result.found, digits);
-        }
-        return result;
     }
 
     private static String getDigit(String num) {
