@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+/**
+ * https://code.google.com/codejam/contest/2974486/dashboard
+ */
 public class MinesweeperMaster {
     private static void solution(int r, int c, int m) {
         // TODO:
