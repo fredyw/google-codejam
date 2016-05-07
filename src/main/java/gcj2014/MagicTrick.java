@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * https://code.google.com/codejam/contest/2974486/dashboard
+ */
 public class MagicTrick {
     public static void main(String[] args) throws Exception {
         File file = new File(args[0]);

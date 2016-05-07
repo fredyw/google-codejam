@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class CookieClicker {
+/**
+ * https://code.google.com/codejam/contest/2974486/dashboard
+ */
+public class CookieClickerAlpha {
     private static double getTime(double c, double f, double x) {
         double totalTime = 0.0;
         double cookie = 2.0;

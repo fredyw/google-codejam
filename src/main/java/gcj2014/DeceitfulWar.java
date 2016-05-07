@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * https://code.google.com/codejam/contest/2974486/dashboard
+ */
 public class DeceitfulWar {
     private static int getNormalWarScore(int n, List<Double> naomi, List<Double> ken) {
         Set<Integer> naomiMarked = new HashSet<Integer>();
