@@ -15,13 +15,14 @@ public class BathroomStalls {
         // File file = new File("src/main/resources/2017/bathroomstalls/C-small-1-attempt0.in");
         // File file = new File("src/main/resources/2017/bathroomstalls/C-small-1-attempt1.in");
         // File file = new File("src/main/resources/2017/bathroomstalls/C-small-1-attempt2.in");
-        File file = new File("src/main/resources/2017/bathroomstalls/C-small-2-attempt0.in");
+        // File file = new File("src/main/resources/2017/bathroomstalls/C-small-2-attempt0.in");
+        File file = new File("src/main/resources/2017/bathroomstalls/C-large.in");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             Scanner scanner = new Scanner(br);
             int testCases = scanner.nextInt();
             for (int t = 1; t <= testCases; t++) {
-                int n = scanner.nextInt();
-                int k = scanner.nextInt();
+                long n = scanner.nextLong();
+                long k = scanner.nextLong();
                 MinMax minMax = lastStall(n, k);
                 System.out.println(String.format("Case #%d: %d %d", t, minMax.max, minMax.min));
             }
@@ -29,10 +30,10 @@ public class BathroomStalls {
     }
 
     private static class Stall {
-        private final int left;
-        private final int right;
+        private final long left;
+        private final long right;
 
-        public Stall(int left, int right) {
+        public Stall(long left, long right) {
             this.left = left;
             this.right = right;
         }
@@ -44,28 +45,28 @@ public class BathroomStalls {
     }
 
     private static class MinMax {
-        private final int min;
-        private final int max;
+        private final long min;
+        private final long max;
 
-        public MinMax(int min, int max) {
+        public MinMax(long min, long max) {
             this.min = min;
             this.max = max;
         }
     }
 
-    private static MinMax lastStall(int n, int k) {
+    private static MinMax lastStall(long n, long k) {
         PriorityQueue<Stall> stalls = new PriorityQueue<>((a, b) -> {
-            int diffA = a.right - a.left;
-            int diffB = b.right - b.left;
-            int cmp = Integer.compare(diffB, diffA);
+            long diffA = a.right - a.left;
+            long diffB = b.right - b.left;
+            int cmp = Long.compare(diffB, diffA);
             if (cmp == 0) {
-                return Integer.compare(a.left, b.left);
+                return Long.compare(a.left, b.left);
             }
             return cmp;
         });
         stalls.add(new Stall(0, n - 1));
         Stall stall = null;
-        int mid = 0;
+        long mid = 0;
         for (int i = 0; i < k; i++) {
             stall = stalls.remove();
             mid = (stall.left + stall.right) / 2;
@@ -76,8 +77,8 @@ public class BathroomStalls {
                 stalls.add(new Stall(mid + 1, stall.right));
             }
         }
-        int left = mid - stall.left;
-        int right = stall.right - mid;
+        long left = mid - stall.left;
+        long right = stall.right - mid;
         return new MinMax(Math.min(left, right), Math.max(left, right));
     }
 }
